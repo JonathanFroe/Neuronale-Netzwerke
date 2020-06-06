@@ -111,10 +111,10 @@ rep = filedialog.askopenfilenames(parent=root,
                                       initialdir='data/test/',
                                       initialfile='',
                                       filetypes=[("JPEG", "*.jpg")])
+
 if len(rep)<1: exit()
 
 image = image_loader(rep[0])
-
 
 output = net(image)
 print(output)
