@@ -59,12 +59,12 @@ if os.path.isfile('meinNetz.pt'):
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.SGD(net.parameters(), lr=0.001, momentum=0.9)
 
-for epoch in range(5000):  # loop over the dataset multiple times
+for epoch in range(0):  # change if you want to train it more
     all_outputs = []
     all_losses = []
     running_loss = 0.0
     for i, data in enumerate(train_data, 0):
-        # get the inputs; data is a list of [inputs, labels]
+        # get the inputs
         inputs, labels = data
 
         # zero the parameter gradients
@@ -76,7 +76,6 @@ for epoch in range(5000):  # loop over the dataset multiple times
         loss.backward()
         optimizer.step()
 
-        # print statistics
         running_loss += loss.item()
         all_outputs.append(outputs[0].tolist())
         all_losses.append(loss .tolist())
@@ -98,11 +97,9 @@ transform = torchvision.transforms.Compose([
 
 
 def image_loader(image_name):
-    """load image, returns cuda tensor"""
     image = Image.open(image_name)
     image = transform(image).float()
-    #image = Variable(image, requires_grad=True)
-    image = image.unsqueeze(0)  #this is for VGG, may not be needed for ResNet
+    image = image.unsqueeze(0)
     return image
 
 
